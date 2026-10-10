@@ -1,4 +1,21 @@
-# Foreman 30B
+# A 30B Coding AI on a 16GB PC? Meet Foreman.
+
+**30.5 billion parameters. An 8GB GTX 1070. A real local coding experiment.**
+
+Can an older PC run a 30B coding model? We tried it. Foreman answered in English, introduced itself, and generated two Python functions that passed 13 checks. Generation reached **4.29–10.79 tokens/second** in these short tests.
+
+**The catch:** RAM briefly fell to about 32MiB. It runs, but this setup is under severe memory pressure. This is an honest experiment you can reproduce, not a promise of comfortable 30B performance on every 16GB PC.
+
+## Meet your local coding foreman
+
+- **English-first coding assistance:** a clear, practical Foreman persona for programming questions, debugging, and code review.
+- **Measured, not guessed:** actual generated outputs, timings, RAM/VRAM samples, and observed failures are published.
+- **Your style, your review:** 24 original draft conversations are ready to edit before any future fine-tuning.
+- **Reproduce it yourself:** pinned GGUF download, checksum verification, isolated local server, API example, and a Windows launcher.
+
+**[Start here](#run-on-windows) · [See the raw results](docs/benchmark.json) · [Review the style examples](data/REVIEW.md)**
+
+## What this release actually is
 
 An English-speaking local coding assistant based on Qwen3-Coder-30B-A3B-Instruct. This release is an **upstream quantized model with a Foreman system prompt**, not a newly trained model. No fine-tuned weights or coding improvement claims are included.
 
@@ -60,3 +77,15 @@ See [MODEL_CARD.md](MODEL_CARD.md) for provenance, licensing, limits, and measur
 - [llama.cpp quantization documentation](https://github.com/ggml-org/llama.cpp/blob/master/tools/quantize/README.md).
 
 Project code and original synthetic examples: Apache-2.0. Upstream trademarks and attribution remain with their owners.
+
+## Try a real task
+
+Ask Foreman to review a small function, explain a failing test, or design an implementation with edge cases:
+
+```text
+Review this function for correctness. Explain the bug, propose a minimal fix,
+and give tests for normal inputs and boundary cases. Clearly distinguish
+tests you suggest from tests you actually executed.
+```
+
+Keep prompts and files small on this hardware. Verify generated code yourself. Found a failure? [Open an issue](https://github.com/kawinthorn11-collab/foreman-30b/issues) with a sanitized reproduction and help make the experiment more useful.
