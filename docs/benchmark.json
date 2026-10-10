@@ -1,0 +1,926 @@
+{
+  "utc": "2026-10-10T15:21:15.411168+00:00",
+  "scope": "Three short smoke tasks; not a coding capability benchmark",
+  "config": {
+    "name": "Foreman",
+    "model": "foreman-30b:latest",
+    "base_model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+    "gguf_repo": "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF",
+    "revision": "b17cb02dd882d5b6ab62fc777ad2995f19668350",
+    "filename": "Qwen3-Coder-30B-A3B-Instruct-UD-Q2_K_XL.gguf",
+    "bytes": 11788590240,
+    "sha256": "3dee4686d756e8842aec638c5725666c76584edce76d71088732b52d2c5d7a45",
+    "quantization": "UD-Q2_K_XL",
+    "port": 11435,
+    "context": 2048,
+    "threads": 4,
+    "gpu_layers": 28,
+    "max_output": 512,
+    "training_status": "not_trained",
+    "customization": "system_prompt_only"
+  },
+  "training_status": "not_trained",
+  "results": [
+    {
+      "task": "identity",
+      "prompt": "Introduce yourself in one short English sentence. State your name.",
+      "response": "I am Foreman, a coding assistant that helps with practical programming tasks.",
+      "wall_seconds": 107.72,
+      "prompt_tokens": 203,
+      "output_tokens": 16,
+      "load_seconds": 40.9745204,
+      "tokens_per_second": 10.79
+    },
+    {
+      "task": "clamp",
+      "prompt": "Return only Python code for clamp(value, low, high). Return value bounded inclusively between low and high. Raise ValueError if low > high. Do not import modules.",
+      "response": "```python\ndef clamp(value, low, high):\n    if low > high:\n        raise ValueError(\"low cannot be greater than high\")\n    return max(low, min(high, value))\n```",
+      "wall_seconds": 28.33,
+      "prompt_tokens": 224,
+      "output_tokens": 40,
+      "load_seconds": 0.0329632,
+      "tokens_per_second": 4.29
+    },
+    {
+      "task": "deduplicate",
+      "prompt": "Return only Python code for deduplicate(items): remove duplicate hashable items while preserving first occurrence order. Do not mutate the input and do not import modules.",
+      "response": "```python\ndef deduplicate(items):\n    seen = set()\n    result = []\n    for item in items:\n        if item not in seen:\n            seen.add(item)\n            result.append(item)\n    return result\n```\nThis solution works by:\n1. Using a set `seen` to track items we've already encountered\n2. Building a new list `result` with only the first occurrence of each item\n3. Preserving the original order since we iterate through the input sequentially\n4. Not mutating the input (creating a new list instead)\n5. Only requiring hashable items (which can be added to a set)\n6. No external imports needed\n\nThe time complexity is O(n) and space complexity is O(n).",
+      "wall_seconds": 21.84,
+      "prompt_tokens": 221,
+      "output_tokens": 151,
+      "load_seconds": 0.049643,
+      "tokens_per_second": 10.27
+    }
+  ],
+  "failure": null,
+  "loaded": {
+    "models": [
+      {
+        "name": "foreman-30b:latest",
+        "model": "foreman-30b:latest",
+        "size": 12111692431,
+        "digest": "178ed54022e8f55617a4f6b50033ad648ae2702c43b9e7e3aab4906f53796bdb",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen3moe",
+          "families": [
+            "qwen3moe"
+          ],
+          "parameter_size": "30.5B",
+          "quantization_level": "Q2_K"
+        },
+        "expires_at": "2026-10-10T08:23:15.3893087-07:00",
+        "size_vram": 6918714163,
+        "context_length": 2048,
+        "runner": "llamacpp"
+      }
+    ]
+  },
+  "samples": [
+    {
+      "time": 1791645517.489393,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.704727172851562,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 639,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645519.5850618,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.62247085571289,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 640,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645521.645874,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.359794616699219,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 638,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645523.7049491,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.303062438964844,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 639,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645525.7709758,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.363838195800781,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 638,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645527.8378022,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.359809875488281,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 639,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645529.9395452,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.378082275390625,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 639,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645532.008503,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.34737777709961,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 639,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645534.0764456,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.424396514892578,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 639,
+        "temperature_c": 42
+      }
+    },
+    {
+      "time": 1791645536.1482599,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 8.370311737060547,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 644,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645538.2171986,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 7.716739654541016,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7015,
+        "temperature_c": 44
+      }
+    },
+    {
+      "time": 1791645540.2822702,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 7.240985870361328,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7015,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645542.3378527,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 6.7798614501953125,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7014,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645544.4060073,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 6.154754638671875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7015,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645546.4737666,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 5.7488555908203125,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7016,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645548.531776,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 5.368015289306641,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7016,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645550.589679,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 4.884082794189453,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7016,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645552.6454875,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 4.786815643310547,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7010,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645554.7097502,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 4.338264465332031,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7015,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645556.7840345,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 2.2675247192382812,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7015,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645558.9146433,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 2.1182403564453125,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7243,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645561.0829046,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 2.3543319702148438,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7239,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645563.1490803,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 2.1866073608398438,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7243,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645565.2055333,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 2.0383682250976562,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7239,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645567.276763,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.8613319396972656,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7243,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645569.3347054,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.7576141357421875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7243,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645571.398013,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.7932014465332031,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7244,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645573.4591157,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.648773193359375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7246,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645575.5462615,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.6623077392578125,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7248,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645577.607819,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.6081275939941406,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7248,
+        "temperature_c": 43
+      }
+    },
+    {
+      "time": 1791645579.677134,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.5778388977050781,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7256,
+        "temperature_c": 44
+      }
+    },
+    {
+      "time": 1791645581.7546098,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.3842811584472656,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7254,
+        "temperature_c": 44
+      }
+    },
+    {
+      "time": 1791645583.8393486,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.2908363342285156,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7251,
+        "temperature_c": 44
+      }
+    },
+    {
+      "time": 1791645585.896326,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.1317596435546875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7251,
+        "temperature_c": 44
+      }
+    },
+    {
+      "time": 1791645587.9534214,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.1317787170410156,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7246,
+        "temperature_c": 44
+      }
+    },
+    {
+      "time": 1791645590.0400987,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 1.11212158203125,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7246,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645592.108257,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.84173583984375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7193,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645594.175526,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.684417724609375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7158,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645596.245979,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.5651931762695312,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7163,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645598.32602,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.5002861022949219,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7235,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645600.3811488,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.4656219482421875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7182,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645602.4424474,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.4533271789550781,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7177,
+        "temperature_c": 45
+      }
+    },
+    {
+      "time": 1791645604.5456402,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3971977233886719,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7200,
+        "temperature_c": 47
+      }
+    },
+    {
+      "time": 1791645606.6749086,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.32195281982421875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7200,
+        "temperature_c": 47
+      }
+    },
+    {
+      "time": 1791645608.7352061,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3898963928222656,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7184,
+        "temperature_c": 47
+      }
+    },
+    {
+      "time": 1791645610.8078253,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3894691467285156,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7185,
+        "temperature_c": 47
+      }
+    },
+    {
+      "time": 1791645612.8588877,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3605079650878906,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7151,
+        "temperature_c": 48
+      }
+    },
+    {
+      "time": 1791645614.919015,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3694725036621094,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 48
+      }
+    },
+    {
+      "time": 1791645616.974779,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.4250221252441406,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 48
+      }
+    },
+    {
+      "time": 1791645619.0474768,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.28389739990234375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 49
+      }
+    },
+    {
+      "time": 1791645621.1144378,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.2676811218261719,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 49
+      }
+    },
+    {
+      "time": 1791645623.4690554,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.45055389404296875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7148,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645625.5608902,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3904075622558594,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 49
+      }
+    },
+    {
+      "time": 1791645627.6256447,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3963470458984375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 49
+      }
+    },
+    {
+      "time": 1791645629.6944633,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3719329833984375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 49
+      }
+    },
+    {
+      "time": 1791645631.787124,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.3882560729980469,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645633.9364202,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.37967681884765625,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645635.996142,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.31444549560546875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645638.062333,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.27251434326171875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7144,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645640.329754,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.22735214233398438,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7144,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645642.3858767,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.24107742309570312,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 51
+      }
+    },
+    {
+      "time": 1791645644.4833229,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.25556182861328125,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 51
+      }
+    },
+    {
+      "time": 1791645646.6156163,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.23471832275390625,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 51
+      }
+    },
+    {
+      "time": 1791645648.7498412,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.22771453857421875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645650.8837934,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.22954559326171875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 49
+      }
+    },
+    {
+      "time": 1791645653.058438,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.24939346313476562,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7145,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645655.1714525,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.03118896484375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645657.546916,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.17702484130859375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7150,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645659.7468991,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.1982421875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 50
+      }
+    },
+    {
+      "time": 1791645661.8399594,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.19245529174804688,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 52
+      }
+    },
+    {
+      "time": 1791645663.9006925,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.17885208129882812,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 52
+      }
+    },
+    {
+      "time": 1791645665.9769335,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.15044403076171875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 52
+      }
+    },
+    {
+      "time": 1791645668.0676086,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.11079025268554688,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7144,
+        "temperature_c": 53
+      }
+    },
+    {
+      "time": 1791645670.1437361,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.11340713500976562,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7144,
+        "temperature_c": 53
+      }
+    },
+    {
+      "time": 1791645672.3144193,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.08261489868164062,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 53
+      }
+    },
+    {
+      "time": 1791645674.6913455,
+      "ram_total_gib": 15.93796157836914,
+      "ram_available_gib": 0.08025741577148438,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7149,
+        "temperature_c": 53
+      }
+    }
+  ],
+  "minimum_system_available_ram_gib": 0.03118896484375,
+  "peak_total_gpu_used_mib": 7256,
+  "memory_note": "System-wide memory and GPU usage includes OS and other apps; not model-only allocations.",
+  "code_validation": {
+    "assertions_passed": 13,
+    "scope": "Two manually reviewed pure functions only; not a general coding benchmark",
+    "instruction_following": "Deduplicate response included explanation despite code-only request"
+  }
+}
