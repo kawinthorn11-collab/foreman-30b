@@ -1,0 +1,18 @@
+{
+  "name": "Foreman",
+  "model": "foreman-30b:latest",
+  "base_model": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "gguf_repo": "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF",
+  "revision": "b17cb02dd882d5b6ab62fc777ad2995f19668350",
+  "filename": "Qwen3-Coder-30B-A3B-Instruct-UD-Q2_K_XL.gguf",
+  "bytes": 11788590240,
+  "sha256": "3dee4686d756e8842aec638c5725666c76584edce76d71088732b52d2c5d7a45",
+  "quantization": "UD-Q2_K_XL",
+  "port": 11435,
+  "context": 2048,
+  "threads": 4,
+  "gpu_layers": 28,
+  "max_output": 512,
+  "training_status": "not_trained",
+  "customization": "system_prompt_only"
+}
