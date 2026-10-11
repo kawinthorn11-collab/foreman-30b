@@ -1,5 +1,7 @@
 # One older PC. Fifty local AI choices. Meet Foreman Local50.
 
+![Foreman Local50: 50 choices, one PC. Source preview, install and test. English coding persona, one model at a time.](foreman-local50-social.png)
+
 **A GTX 1070, 16GB RAM, and a collection you can build without a paid API.** Local50 installs distinct smaller models, gives each the Foreman English coding persona, checks its weight identity, asks a real question, and unloads it before trying the next model.
 
 **[Install Local50](LOCAL50.md) · [See the exact candidates and licenses](local50-models.json) · [Download project source](https://github.com/kawinthorn11-collab/foreman-30b/releases)**

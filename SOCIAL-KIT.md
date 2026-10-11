@@ -2,7 +2,29 @@
 
 Public project: https://github.com/kawinthorn11-collab/foreman-30b
 
-## Facebook caption (Thai, ready to copy)
+## Local50 Facebook caption (Thai, prepared for you to post)
+
+คอมเก่าอย่าเพิ่งปลดประจำการ ลอง Foreman Local50 👷💻
+
+โปรเจกต์คลัง AI ในเครื่องที่ตั้งเป้า 50 โมเดลบน RAM 16GB + GTX 1070 เปิดใช้ทีละตัว พร้อมสไตล์ผู้ช่วยเขียนโค้ดภาษาอังกฤษชื่อ Foreman และเครดิต GitHub
+
+📦 แจกซอร์ส ตัวติดตั้งแบบโหลดต่อได้ คู่มือ API และรายชื่อโมเดลพร้อมลิงก์เจ้าของเดิม
+🔍 ตรวจตัวไฟล์ และทดสอบให้โมเดลตอบจริงก่อนนับว่าใช้งานได้
+🧪 เปิดผลทดสอบจริงพร้อมข้อจำกัดให้ตรวจสอบ
+💚 ใช้โมเดลในเครื่องได้โดยไม่ต้องสมัคร API แบบเสียเงิน
+
+ตอนนี้เป็น Source Preview และยังติดตั้งชุด 50 ตัวอยู่ ดูจำนวนที่ทดสอบแล้วในรายงานบน GitHub ได้เลยครับ แต่ละตัวใช้เงื่อนไขของเจ้าของโมเดลเดิม โปรเจกต์นี้ปรับคำสั่งและสไตล์คำตอบ ยังไม่ได้เทรนน้ำหนักใหม่
+
+โหลดซอร์ส ดูวิธีติดตั้ง และผลเครื่องจริง:
+https://github.com/kawinthorn11-collab/foreman-30b
+
+ถ้าชอบแนวทางนี้ ฝาก Star ไว้ติดตาม หรือแชร์ผลทดสอบเครื่องของคุณใน Issues ได้ครับ
+
+#LocalAI #Foreman #Ollama #OpenSource #AIเขียนโค้ด
+
+Attach `foreman-local50-social.png`. This is an AI-generated promotional illustration, not a screenshot or a claim that fifty models are already installed. The banner's fifty choices refer to the reviewed candidate catalog. Generated with the built-in imagegen tool: a dark forest/lime hardware illustration, an older desktop and one active model card, with the exact headline "50 CHOICES. ONE PC." and the visible "SOURCE PREVIEW · INSTALL & TEST" label. No Facebook post has been submitted.
+
+## Historical 30B Facebook caption
 
 AI 30B บนคอม RAM 16GB + GTX 1070… รันได้จริงไหม? ผมลองแล้วครับ 👀
 
@@ -40,7 +62,7 @@ GitHub release asset download counts measure requests for release files, not uni
 No paid ads, bought stars, fake accounts, artificial downloads, paid services, or promised rankings are part of this plan. No future checks or posts are scheduled automatically.
 
 
-## 2026-10-11 update: 50-model catalog + tested 35B
+## Historical large-model catalog + tested 35B announcement
 
 ### English announcement
 
