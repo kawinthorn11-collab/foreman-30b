@@ -42,6 +42,7 @@ class CreditProfilesTests(unittest.TestCase):
         self.assertEqual(config['model'], 'foreman-35b:latest')
         self.assertEqual(config['bytes'], 10756586464)
         self.assertEqual(len(config['sha256']), 64)
+        self.assertIn('PARAMETER num_batch 32', project.make_modelfile(Path('35b.gguf'), 'You are Foreman.', {**config, 'batch': 32}))
 
 
 if __name__ == '__main__':
