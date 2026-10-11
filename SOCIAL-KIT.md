@@ -38,3 +38,27 @@ Attach `foreman-social.png`. It is an AI-generated promotional illustration, not
 GitHub release asset download counts measure requests for release files, not unique people, successful installations, or active users. Stars are interest signals, not installs. Use GitHub's repository traffic view when available; avoid publishing private analytics without review. Ignore your own testing/download activity when assessing organic interest.
 
 No paid ads, bought stars, fake accounts, artificial downloads, paid services, or promised rankings are part of this plan. No future checks or posts are scheduled automatically.
+
+
+## 2026-10-11 update: 50-model catalog + tested 35B
+
+### English announcement
+
+50 models to explore. A 35B coding experiment that actually ran on an old 16GB PC. Meet Foreman: a local English coding persona with project credit, pinned downloads and published test results. Our Qwen3.6-35B low-bit profile generated a function that passed 9 reviewed checks and included the GitHub credit. The catch is real: RAM dropped below 0.5GiB, so the smaller 4B profile stays the everyday choice. Source and style drafts are free. This is prompt customization, not 50 trained models.
+
+https://github.com/kawinthorn11-collab/foreman-30b
+
+### Facebook caption (Thai; prepared text, not posted)
+
+คอม RAM 16GB กับ GTX 1070 จะลอง AI 35B ได้ไหม? ผมลองแล้วครับ 👷‍♂️
+
+Foreman มีรายชื่อโมเดลให้เลือกศึกษา 50 ตัว พร้อมชุดสไตล์ผู้ช่วยเขียนโค้ดภาษาอังกฤษและเครดิต GitHub ของผม รุ่น Qwen3.6-35B แบบบีบอัดสร้างฟังก์ชันที่ผ่านการตรวจ 9 กรณี และตอบพร้อมเครดิตได้จริง
+
+แต่บอกกันตรง ๆ: RAM เหลือน้อยกว่า 0.5GB ในการทดสอบ รุ่นใหญ่จึงเป็นโหมดทดลอง ส่วนรุ่น 4B ใช้งานประจำ มีผลทดสอบและข้อจำกัดให้อ่านครบ ไม่มีคำอ้างว่าเทรนใหม่ทั้ง 50 ตัว
+
+โหลดซอร์สฟรี ดูรายชื่อโมเดล และแชร์ผลเครื่องของคุณได้ที่:
+https://github.com/kawinthorn11-collab/foreman-30b
+
+#LocalAI #Foreman #Ollama #CodingAI #OpenWeights
+
+Use the existing `foreman-social.png` for the original 30B experiment; do not relabel it as an image of a trained 35B model. No Facebook post has been submitted.

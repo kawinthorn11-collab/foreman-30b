@@ -17,3 +17,9 @@ Intended use: local English coding assistance and a reproducible customization e
 Hardware target: Windows, 16GB RAM plus GTX 1070/8GB VRAM, Vulkan, partial offload, 2,048 context. Long-context and agent workloads are outside this initial test. No general performance guarantee is made.
 
 Local measurement: three short requests completed on this PC. Identity matched Foreman/English; two manually reviewed Python functions passed 13 checks. Generation 4.29–10.79 tokens/sec; cold request 107.72 seconds; GPU usage peaked at 7,256MiB system-wide. Available RAM dipped to 32MiB: **severe memory pressure, not comfortable daily use**. The runtime model allocation reported 6,918,714,163 bytes VRAM and 12,111,692,431 bytes total. System-wide readings include other applications. The model was unloaded after testing. The deduplicate response violated the code-only instruction by adding explanation. See `docs/benchmark.json` for raw results. This is a smoke test, not proof of excellent coding ability. Training recipe is unexecuted and its environment has not been validated on an external GPU.
+
+## 2026-10-11 extension
+
+The original 30B result above is retained. A separate Qwen3.6-35B IQ2_XXS experiment is documented in [FOREMAN-35B.md](FOREMAN-35B.md), with pinned provenance in config-35b.json. The registry contains 50 verified repository references, not 50 installed or trained models.
+
+Credit applies to the Foreman persona/configuration and original synthetic style examples by kawinthorn11-collab. It does not claim ownership of Qwen or any other upstream weights. All draft examples include project credit and remain pending review. All published model profiles remain prompt customization, with no fine-tuned adapter or merged weights.

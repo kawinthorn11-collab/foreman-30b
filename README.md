@@ -8,11 +8,38 @@ Can an older PC run a 30B coding model? We tried it. Foreman answered in English
 
 **The catch:** RAM briefly fell to about 32MiB. It runs, but this setup is under severe memory pressure. This is an honest experiment you can reproduce, not a promise of comfortable 30B performance on every 16GB PC.
 
-**[Download the preview ZIP](https://github.com/kawinthorn11-collab/foreman-30b/releases/download/v0.1.0-preview/Foreman-30B-v0.1.0-preview.zip)** · **[Read the 3-step quickstart](QUICKSTART.md)** · **[Report your hardware results](CONTRIBUTING.md)**
+**[Download the preview ZIP](https://github.com/kawinthorn11-collab/foreman-30b/releases/download/v0.2.0-preview/Foreman-v0.2.0-preview.zip)** · **[Read the 3-step quickstart](QUICKSTART.md)** · **[Report your hardware results](CONTRIBUTING.md)**
 
 ![Release downloads](https://img.shields.io/github/downloads/kawinthorn11-collab/foreman-30b/total)
 
 Free project source. No paid API subscription is required for local inference. The ZIP contains source and setup tooling, **not the 11.8GB model or a bundled Python/Ollama installation**. Preview status: hardware-limited and not production-ready. See the requirements before downloading weights.
+
+## New: 50-model catalog and your GitHub credit
+
+Explore [50 verified upstream repositories](MODEL-CATALOG.md), including Qwen3.6, Kimi K2.5, MiniMax M2.7, DeepSeek V4, GLM 5.1, Gemma 4, Nemotron 3 and Hermes 4. The catalog separates **installed profiles** from **models not downloaded**, and includes older reference releases. It is not a ranking or 50 local training runs.
+
+The Foreman English coding prompt and all 24 original draft examples now include this project credit:
+
+> Foreman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b
+
+Upstream model and quantizer attribution remains intact. Prompt instructions can be ignored by a model; they do not enforce a footer on every possible output, and tool-call/strict-format data must remain valid. No trained adapter or merged custom weights have been produced.
+
+A pinned **Qwen3.6-35B-A3B IQ2_XXS** experiment is installed and tested alongside the original 30B project. It generated a function that passed 9 reviewed checks and included the full GitHub credit, but available RAM fell as low as **0.284GiB**. Keep it experimental. Read [the 35B profile and test report](FOREMAN-35B.md) before downloading; use one model at a time on this hardware.
+
+```powershell
+python scripts/project.py setup --profile qwen36 --weights-dir D:/ForemanModels/Qwen3.6-35B-A3B
+python scripts/project.py chat --profile qwen36 --prompt "Write clamp(value, low, high) and explain edge cases."
+```
+
+Its text GGUF is 10,756,586,464 bytes, verified against the publisher's SHA256. The vision projector is not included; this profile is for text. The context/output limits are 2,048/512, not 64K. The existing future-training recipe targets only Qwen3-Coder-30B, not every family in the catalog.
+
+For a supported base already installed on your local Ollama server, apply the shared persona without duplicating or training weights:
+
+```powershell
+python scripts/create_profile.py --base qwen3.5:4b-q4_K_M --name foreman-agent:latest --context 65536 --output 2048
+```
+
+This 4B profile is the everyday local agent choice on the original PC. Hermes Agent and Claude Code CLI use the 4B profile there; the large 2K profiles do not satisfy their full agent context requirements. Those clients and private API credentials are not bundled in this public source project.
 
 ## Meet your local coding foreman
 
