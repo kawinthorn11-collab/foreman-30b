@@ -2,13 +2,47 @@ import json
 from pathlib import Path
 import sys
 import unittest
+import tempfile
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import project
+import create_draft
 
 
 class CreditProfilesTests(unittest.TestCase):
+    def test_regenerating_drafts_keeps_credit_and_pending_review(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'data').mkdir()
+            (root / 'prompt.txt').write_text((ROOT / 'prompt.txt').read_text(encoding='utf-8'), encoding='utf-8')
+            with patch.object(create_draft, '__file__', str(root / 'scripts/create_draft.py')):
+                create_draft.main()
+            rows = [json.loads(line) for line in (root / 'data/style-draft.jsonl').read_text(encoding='utf-8').splitlines()]
+            self.assertEqual(project.validate_examples(rows), 24)
+            for row in rows:
+                self.assertEqual(row['review_status'], 'pending')
+                self.assertEqual(row.get('project_credit'), 'https://github.com/kawinthorn11-collab/foreman-30b')
+                self.assertTrue(row['messages'][-1]['content'].endswith('Foreman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b'))
+            self.assertIn('This data has not been used to train weights.', (root / 'data/REVIEW.md').read_text(encoding='utf-8'))
+
+    def test_35b_chat_disables_thinking_like_the_measured_run(self):
+        config = json.loads((ROOT / 'config-35b.json').read_text(encoding='utf-8'))
+        self.assertIs(config.get('think'), False)
+        with patch.object(project, 'start'), patch.object(project, 'config', return_value=config), patch.object(project, 'request') as request:
+            project.chat('Hello')
+            self.assertIs(request.call_args.args[1].get('think'), False)
+
+    def test_35b_interactive_disables_thinking(self):
+        original = project.ACTIVE_CONFIG
+        try:
+            with patch.object(sys, 'argv', ['project.py', 'interactive', '--profile', 'qwen36']), patch.object(project, 'start'), patch.object(project, 'ollama', return_value='ollama'), patch.object(project, 'environment', return_value={}), patch.object(project.subprocess, 'run') as run:
+                project.main()
+                self.assertIn('--think=false', run.call_args.args[0])
+        finally:
+            project.ACTIVE_CONFIG = original
+
     def test_credit_policy_preserves_upstream_and_tool_calls(self):
         prompt = (ROOT / 'prompt.txt').read_text(encoding='utf-8')
         self.assertIn('https://github.com/kawinthorn11-collab/foreman-30b', prompt)
