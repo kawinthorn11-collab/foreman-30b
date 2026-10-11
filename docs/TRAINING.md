@@ -23,3 +23,11 @@ python convert_hf_to_gguf.py /path/to/merged --outfile foreman-f16.gguf --outtyp
 Use representative, legally usable calibration text, separate from evaluation examples. Follow the [quantizer README](https://github.com/ggml-org/llama.cpp/blob/master/tools/quantize/README.md) for supported formats and flags. A standard Q2_K quantization is not identical to Unsloth's UD-Q2_K_XL dynamic recipe. Full-precision source weights alone are about 61GB; conversion needs additional storage. The current local disk and GPU are not a full training/conversion setup.
 
 After conversion, compute SHA256, record size and runtime memory, and rerun the held-out suite at the target low-bit format. Publish weights through a suitable model host with a derivative model card, adapter/base license attribution, exact training provenance, and limitations. GitHub can link to those weights once they actually exist.
+
+## 50-model registry and credit dataset
+
+The catalog is not a promise of 50 trained models. The shared prompt and 24 pending synthetic examples include the project credit requested by kawinthorn11-collab. No gradient updates, adapters or merged fine-tuned checkpoints have been produced.
+
+The existing `train_lora.py` recipe targets only Qwen3-Coder-30B-A3B-Instruct; it is not validated for Qwen3.6, DeepSeek, Kimi, Gemma, Hermes, MiniMax, GLM or Nemotron. Training/export requires architecture-specific support, compatible GPU capacity, reviewed data and compliance with each upstream license. A GTX 1070 with 8GB VRAM and a 16GB host cannot execute this 30B bf16 recipe. Downloading a GGUF or creating an Ollama profile performs neither training nor knowledge distillation.
+
+Quantization reduces numerical precision and storage, not the number of parameters. Distilling a large teacher into a smaller student would require a separate licensed dataset, training run and evaluation; no such work is claimed here.

@@ -1,0 +1,127 @@
+{
+  "model": "foreman-35b:latest",
+  "training_status": "not_trained",
+  "scope": "Second short coding/credit smoke test after increasing the test output cap from 256 to the configured 512",
+  "prompt": "Write clamp(value, low, high) in Python. Raise ValueError if low > high. Use at most 6 code lines and no docstring. Then give one brief explanation sentence and your full project credit.",
+  "options": {
+    "num_ctx": 2048,
+    "num_predict": 512,
+    "num_batch": 32
+  },
+  "content": "```python\ndef clamp(value, low, high):\n    if low > high:\n        raise ValueError(\"low must be <= high\")\n    return max(low, min(value, high))\n```\n\nThis function clamps a value between `low` and `high`, raising an error if `low` exceeds `high`.\n\nForeman customization by kawinthorn11-collab \u2014 https://github.com/kawinthorn11-collab/foreman-30b",
+  "credit_present": true,
+  "tokens_per_second": 13.18,
+  "load_seconds": 7.41,
+  "success": true,
+  "output_tokens": 103,
+  "done_reason": "stop",
+  "elapsed_seconds": 30.41,
+  "minimum_system_available_ram_gib": 0.49505615234375,
+  "peak_system_gpu_used_mib": 7518,
+  "samples": [
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 10.563655853271484,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 499,
+        "temperature_c": 46
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 9.739391326904297,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7353,
+        "temperature_c": 47
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 4.618446350097656,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7354,
+        "temperature_c": 46
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 1.8308296203613281,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7518,
+        "temperature_c": 48
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 1.3477439880371094,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7517,
+        "temperature_c": 50
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 1.152557373046875,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7510,
+        "temperature_c": 52
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 0.9370384216308594,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7517,
+        "temperature_c": 51
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 0.6842994689941406,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7511,
+        "temperature_c": 51
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 0.53515625,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7511,
+        "temperature_c": 52
+      }
+    },
+    {
+      "ram_total_gib": 15.940589904785156,
+      "ram_available_gib": 0.49505615234375,
+      "gpu": {
+        "name": "NVIDIA GeForce GTX 1070",
+        "total_mib": 8192,
+        "used_mib": 7502,
+        "temperature_c": 51
+      }
+    }
+  ],
+  "manually_reviewed_code_checks": {
+    "passed": 9,
+    "scope": "Eight numeric/boundary examples plus invalid bounds"
+  }
+}
