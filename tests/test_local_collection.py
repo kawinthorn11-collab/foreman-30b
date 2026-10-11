@@ -18,6 +18,28 @@ def entry(tag='qwen3:4b', digit='a'):
 
 
 class LocalCollectionTests(unittest.TestCase):
+    def test_progress_write_retries_transient_windows_sharing_and_bounds_persistent_failure(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'progress.json'
+            replace = collection.os.replace
+            attempts = [0]
+            def transient(source, target):
+                attempts[0] += 1
+                if attempts[0] == 1:
+                    raise PermissionError('Transient Windows reader')
+                replace(source, target)
+            with (patch.object(collection.os, 'replace', side_effect=transient),
+                  patch.object(collection.time, 'sleep')):
+                collection.atomic_json(path, {'count': 15})
+            self.assertEqual(json.loads(path.read_text()), {'count': 15})
+            self.assertEqual(attempts[0], 2)
+            with (patch.object(collection.os, 'replace', side_effect=PermissionError('Persistent lock')) as locked,
+                  patch.object(collection.time, 'sleep')):
+                with self.assertRaises(PermissionError):
+                    collection.atomic_json(path, {'count': 16})
+            self.assertLessEqual(locked.call_count, 8)
+            self.assertEqual(json.loads(path.read_text()), {'count': 15})
+
     def test_stream_download_resumes_open_ended_range_and_checks_complete_blob(self):
         self.assertTrue(hasattr(collection, 'download_blob_stream'), 'Stream transport missing')
         with tempfile.TemporaryDirectory() as folder:
