@@ -96,21 +96,22 @@ class LocalCollectionTests(unittest.TestCase):
     def test_stream_trickling_data_switches_transport_and_retains_partial(self):
         with tempfile.TemporaryDirectory() as folder:
             destination = Path(folder) / 'verified-blob'
-            payload = b'checked weights'
+            # More than the old 1MiB/minute limit still leaves a multi-GB blob impractically slow.
+            payload = b'x' * (2 * 1024 * 1024)
             digest = 'sha256:' + hashlib.sha256(payload).hexdigest()
             clock = [0.0]
             class Reply(io.BytesIO):
                 status = 200
-                headers = {'Content-Length': '15'}
+                headers = {'Content-Length': str(len(payload))}
                 def read1(self, size):
                     clock[0] += 20.0
-                    return super().read1(min(size, 4))
+                    return super().read1(min(size, 512 * 1024))
             with (patch.object(collection.OPENER, 'open', return_value=Reply(payload)),
                   patch.object(collection.time, 'monotonic', side_effect=lambda: clock[0])):
                 with self.assertRaises(TimeoutError):
-                    collection.download_blob_stream('https://registry.ollama.ai/blob', destination, digest, 15, {}, lambda: None)
+                    collection.download_blob_stream('https://registry.ollama.ai/blob', destination, digest, len(payload), {}, lambda: None)
             self.assertFalse(destination.exists())
-            self.assertEqual(destination.with_name(destination.name + '.foreman-stream').read_bytes(), payload[:12])
+            self.assertEqual(destination.with_name(destination.name + '.foreman-stream').read_bytes(), payload[:1536 * 1024])
 
     def test_direct_download_resumes_verified_size_parts_and_verifies_final_blob(self):
         with tempfile.TemporaryDirectory() as folder:
