@@ -118,7 +118,16 @@ def atomic_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + '.tmp')
     temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    os.replace(temporary, path)
+    # Windows readers may briefly deny replacement. Keep the previous complete
+    # state visible and retry for a bounded interval rather than failing a model.
+    for attempt in range(8):
+        try:
+            os.replace(temporary, path)
+            break
+        except PermissionError:
+            if attempt == 7:
+                raise
+            time.sleep(min(0.01 * 2**attempt, 0.25))
 
 
 def request(host, route, body=None, timeout=30):
