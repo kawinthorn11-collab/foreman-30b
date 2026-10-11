@@ -1,0 +1,289 @@
+{
+  "snapshot_at_utc": "2026-10-11T15:29:44.682624+00:00",
+  "status": "installation_in_progress",
+  "target": 50,
+  "verified_distinct_count": 15,
+  "hardware": {
+    "ram_gb": 16,
+    "gpu": "GTX 1070",
+    "vram_gb": 8,
+    "backend": "Ollama 0.40.2 Vulkan"
+  },
+  "credit_passed_count": 14,
+  "python_check_passed_count": 9,
+  "test_limits": "One synthetic is_even question; six integer cases; restrictive arithmetic AST. Not a coding benchmark. Prompt credit compliance is separate from inference success.",
+  "records": [
+    {
+      "base_tag": "qwen3.5:0.8b",
+      "profile": "foreman-qwen3.5-0.8b:latest",
+      "model_layer_digests": [
+        "sha256:889ea3b9143cdc32146c7d530ce5f3d452ec18069086f6f4167ce9ae72a9691f"
+      ],
+      "elapsed_seconds": 15.15,
+      "tokens_per_second": 99.08,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 9406328832,
+      "load_duration_seconds": 13.76,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:26:25.731871+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": false,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b\n```"
+    },
+    {
+      "base_tag": "qwen3.5:4b",
+      "profile": "foreman-qwen3.5-4b:latest",
+      "model_layer_digests": [
+        "sha256:a9d0a3e1d8c91732a3812becd31f8d4a8ff57414903f226306069f0437e2ac50"
+      ],
+      "elapsed_seconds": 7.49,
+      "tokens_per_second": 48.47,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 7570112512,
+      "load_duration_seconds": 4.87,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:32:29.412469+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": false,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b\n```"
+    },
+    {
+      "base_tag": "qwen3.5:9b",
+      "profile": "foreman-qwen3.5-9b:latest",
+      "model_layer_digests": [
+        "sha256:02d45dc1cf451ba2475ac33b301c2dd8f985abe4c182ce04a1f2f5bf0260278d"
+      ],
+      "elapsed_seconds": 50.69,
+      "tokens_per_second": 29.07,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 4941500416,
+      "load_duration_seconds": 46.88,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:33:22.186346+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "qwen3:0.6b",
+      "profile": "foreman-qwen3-0.6b:latest",
+      "model_layer_digests": [
+        "sha256:7f4030143c1c477224c5434f8272c662a8b042079a0a584f0a27a1684fe2e1fa"
+      ],
+      "elapsed_seconds": 4.75,
+      "tokens_per_second": 85.22,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 10379464704,
+      "load_duration_seconds": 2.83,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:33:46.174096+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": false,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b\n```"
+    },
+    {
+      "base_tag": "qwen3:1.7b",
+      "profile": "foreman-qwen3-1.7b:latest",
+      "model_layer_digests": [
+        "sha256:3d0b790534fe4b79525fc3692950408dca41171676ed7e21db57af5c65ef6ab6"
+      ],
+      "elapsed_seconds": 3.49,
+      "tokens_per_second": 107.4,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 9541304320,
+      "load_duration_seconds": 2.58,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:34:24.690044+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": false,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "qwen3:4b-q4_K_M",
+      "profile": "foreman-qwen3-4b-q4_K_M:latest",
+      "model_layer_digests": [
+        "sha256:163553aea1b1de62de7c5eb2ef5afb756b4b3133308d9ae7e42e951d8d696ef5"
+      ],
+      "elapsed_seconds": 5.49,
+      "tokens_per_second": 58.69,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 7996579840,
+      "load_duration_seconds": 3.85,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:35:38.695172+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": false,
+      "response": "def is_even(n):\n    return n % 2 == 0\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "qwen3:4b-instruct-2507-q4_K_M",
+      "profile": "foreman-qwen3-4b-instruct-2507-q4_K_M:latest",
+      "model_layer_digests": [
+        "sha256:85e4a5b7b8ef0e48af0e8658f5aaab9c2324c76c1641493f4d1e25fce54b18b9"
+      ],
+      "elapsed_seconds": 5.44,
+      "tokens_per_second": 61.53,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 8252313600,
+      "load_duration_seconds": 3.81,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:39:53.420495+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "qwen3:4b-thinking-2507-q4_K_M",
+      "profile": "foreman-qwen3-4b-thinking-2507-q4_K_M:latest",
+      "model_layer_digests": [
+        "sha256:3e4cb14174460404e7a233e531675303b2fbf7749c02f91864fe311ab6344e4f"
+      ],
+      "elapsed_seconds": 12.93,
+      "tokens_per_second": 59.52,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 8287047680,
+      "load_duration_seconds": 3.63,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:41:13.172778+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "Okay, let's tackle this. The user wants a Python function is_even(n) that returns a boolean. No imports, annotations, examples, extra explanation. Keep it under 100 words.\n\nFirst, the function should check if n is even. The simplest way is to use modulo 2. If n % 2 == 0, return True, else False.\n\nWait, but the user said no imports and annotations. So the code should be straightforward. Let me write it.\n\ndef is_even(n):\n    return n % 2 == 0\n\nWait, that's concise. Let me check the word count. The code block is 2 lines. Then the credit line.\n\nWait, the user says \"followed by your full Foreman GitHub project credit\". So after the code block, add the credit line.\n\nWait, the instructions say: \"Write only a Python code block defining is_even(n) that returns a boolean, followed by your full Foreman GitHub project credit.\"\n\nSo the response should be:\n\n```python\ndef is_even(n):\n    return n % 2 == 0\n```\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b\n\nWait, but the user said \"No imports, annotations, examples or extra explanation\". So the code block is just the function. The credit is a separate line after the code block.\n\nCheck the word count. The code is 2 lines, the credit is one line. Total words: the code block is 2 lines, but the user says \"under 100 words\". The code itself is short. Let me count the words in the credit line: \"Foreman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b\" — that's about 10 words. So total under 100.\n\nWait, the user says \"Keep it under 100 words\". The code block is in a Python code block, so the words here are the code and the credit line. The code is 2 lines, the credit is one line. The code's content is 2 lines of code, which is 10 characters per line? Wait, the user says \"words\" here. Wait, the instruction says \"Keep it under 100 words\". So the entire response should be under"
+    },
+    {
+      "base_tag": "qwen3:8b",
+      "profile": "foreman-qwen3-8b:latest",
+      "model_layer_digests": [
+        "sha256:a3de86cd1c132c822487ededd47a324c50491393e6565cd14bafa40d0b8e686f"
+      ],
+      "elapsed_seconds": 7.77,
+      "tokens_per_second": 34.41,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 5722861568,
+      "load_duration_seconds": 5.1,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:43:46.303283+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": false,
+      "response": "def is_even(n): return n % 2 == 0\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "gemma4:e2b",
+      "profile": "foreman-gemma4-e2b:latest",
+      "model_layer_digests": [
+        "sha256:6dd7ac24fe13a238898e16e253ebc7a72fa27fb83f2658c2f6c241df3af5937d"
+      ],
+      "elapsed_seconds": 17.65,
+      "tokens_per_second": 35.94,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 8639893504,
+      "load_duration_seconds": 12.19,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T11:51:25.497426+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "gemma4:e4b",
+      "profile": "foreman-gemma4-e4b:latest",
+      "model_layer_digests": [
+        "sha256:370c2879f17648d337b0ab4e208fdce348e24d1060064e93d7645daafd56d39c"
+      ],
+      "elapsed_seconds": 13.24,
+      "tokens_per_second": 51.15,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 6036852736,
+      "load_duration_seconds": 10.88,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T14:48:30.774204+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "granite4:1b",
+      "profile": "foreman-granite4-1b:latest",
+      "model_layer_digests": [
+        "sha256:551fc8b33f100c13d056e114b4e352bd4f2763240b68283076110203da8f5843"
+      ],
+      "elapsed_seconds": 5.91,
+      "tokens_per_second": 56.54,
+      "credit_passed": false,
+      "minimum_available_ram_bytes": 6663008256,
+      "load_duration_seconds": 4.65,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T14:50:09.821241+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```"
+    },
+    {
+      "base_tag": "granite4:3b",
+      "profile": "foreman-granite4-3b:latest",
+      "model_layer_digests": [
+        "sha256:6c02683809a8dc4eb05c78d44bc63bcd707703b078998fa58829c858ab337bb0"
+      ],
+      "elapsed_seconds": 35.65,
+      "tokens_per_second": 59.69,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 6358691840,
+      "load_duration_seconds": 33.89,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T14:51:56.238026+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "ministral-3:3b",
+      "profile": "foreman-ministral-3-3b:latest",
+      "model_layer_digests": [
+        "sha256:910e4bf4e2338f181e99796d7452404e85c1b6bbbf8cd0bb094672cf9b6f2f22"
+      ],
+      "profile_identity_sha256": "d4baa90aa914f85e369513ed3a22d2f43dccaf6811fb159507e76be30961496b",
+      "elapsed_seconds": 44.06,
+      "tokens_per_second": 62.38,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 5197037568,
+      "load_duration_seconds": 42.45,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T15:02:59.108565+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    },
+    {
+      "base_tag": "ministral-3:8b",
+      "profile": "foreman-ministral-3-8b:latest",
+      "model_layer_digests": [
+        "sha256:3ea32f882c990baebcfe6ab5cda2e3167d54ab16d7937c0b9aa3db11aba01574"
+      ],
+      "profile_identity_sha256": "848848e4e009f3224f7e131b068e5a370cd1f41cc1038fd4189bec9954e859fc",
+      "elapsed_seconds": 113.88,
+      "tokens_per_second": 29.76,
+      "credit_passed": true,
+      "minimum_available_ram_bytes": 5029191680,
+      "load_duration_seconds": 109.19,
+      "context": 2048,
+      "response_tokens": 512,
+      "tested_at_utc": "2026-10-11T15:04:55.666636+00:00",
+      "visible_response_passed": true,
+      "python_check_passed": true,
+      "response": "```python\ndef is_even(n):\n    return n % 2 == 0\n```\n\nForeman customization by kawinthorn11-collab — https://github.com/kawinthorn11-collab/foreman-30b"
+    }
+  ]
+}

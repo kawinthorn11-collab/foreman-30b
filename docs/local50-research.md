@@ -4,7 +4,7 @@ Verified 2026-10-11 UTC against public official Ollama pages and registry metada
 
 ## Byte budget and identity
 
-The main 50 have **154,269,328,269 bytes** of additive download budget (**154.269 GB decimal; 143.675 GiB**). Their language-model layers total 148,463,745,952 bytes. The largest main model layer is 6,022,221,312 bytes, Ministral 3 8B. Additional projector/draft weights and small config/template/license layers are included in each total. Shared blobs can lower physical disk usage; filesystem/manifest overhead and temporary download space are additional. A practical main-cache allowance is at least 170 GiB. This is a storage budget, not a peak RAM/VRAM measurement.
+The main 50 have **154,269,328,269 bytes** of additive download budget (**154.269 GB decimal; 143.675 GiB**). Their language-model layers total 148,463,745,952 bytes. The largest main model layer is 6,022,221,312 bytes, Ministral 3 8B. Additional projector/draft weights and small config/template/license layers are included in each total. Shared blobs can lower physical disk usage; filesystem/manifest overhead and temporary download space are additional. A practical main-cache allowance is at least 190 GiB, including download fallback space and the installer reserve. Reserve candidates and failed partial downloads can require more. This is a storage budget, not a peak RAM/VRAM measurement.
 
 The ten reserves are replacement choices and are not part of the promised 50. Their separate byte sum is recorded in the JSON.
 
