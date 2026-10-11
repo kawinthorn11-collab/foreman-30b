@@ -4,7 +4,7 @@
 
 **[Install Local50](LOCAL50.md) · [See the exact candidates and licenses](local50-models.json) · [Download project source](https://github.com/kawinthorn11-collab/foreman-30b/releases)**
 
-The reviewed registry contains 50 main candidates and 10 reserves. Installation and hardware testing are in progress on the reference PC; a catalog entry is not an installed-model result. Only distinct models that return a visible answer count toward the target of 50. Credit compliance and a small Python check are measured separately. See [LOCAL50.md](LOCAL50.md) for installation, limits and interpretation.
+The reviewed registry contains 50 main candidates and 10 reserves. Installation and hardware testing are in progress on the reference PC; a catalog entry is not an installed-model result. Only distinct models that return a visible answer count toward the target of 50. Credit compliance and a small Python check are measured separately. Read the [dated hardware progress snapshot](docs/LOCAL50-RESULTS.md) and [LOCAL50.md](LOCAL50.md) for installation, limits and interpretation.
 
 Profiles initially use **2,048 context tokens / 512 output tokens**, one loaded model and one request at a time. The main candidates total about **154GB of downloads** before shared-layer savings. Weights download from upstream; the source ZIP contains no model weights, private API key or installed runtimes. Some candidates are recent releases and others are older reference families; this is not a claim that all fifty are the newest or best coding models.
 
