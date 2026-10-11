@@ -282,8 +282,8 @@ def download_blob_stream(url, destination, digest, size, progress, save):
                 if now - began > 1800:
                     raise TimeoutError('Blob stream exceeded its time budget; partial retained')
                 if now - window_started >= 60:
-                    if offset < size and offset - window_offset < 1024 * 1024:
-                        raise TimeoutError('Blob stream below 1MiB/minute; switch transport, partial retained')
+                    if offset < size and offset - window_offset < 64 * 1024 * 1024:
+                        raise TimeoutError('Blob stream below 64MiB/minute; switch transport, partial retained')
                     window_started, window_offset = now, offset
                 if time.monotonic() - last >= 1:
                     progress['download']['completed'] = offset
