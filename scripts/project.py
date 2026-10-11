@@ -11,6 +11,8 @@ import time
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[1]
+ACTIVE_CONFIG = 'config.json'
+WEIGHTS_DIR = ROOT / 'weights'
 
 def check_config(config):
     for key, lo, hi in [('context', 512, 8192), ('gpu_layers', 0, 48),
@@ -58,8 +60,22 @@ def make_modelfile(weight, prompt, config):
             'PARAMETER num_batch 64\nPARAMETER temperature 0.2\nPARAMETER top_p 0.8\n'
             'PARAMETER top_k 20\nPARAMETER repeat_penalty 1.05\n')
 
+def make_installed_profile(base, prompt, context=2048, max_output=512):
+    """Prompt customization of installed weights; not training or conversion."""
+    if not isinstance(base, str) or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.:/-]*', base) or '..' in base or base.startswith('/'):
+        raise ValueError('Use a valid installed Ollama model name')
+    if not isinstance(prompt, str) or not prompt.strip() or '"""' in prompt:
+        raise ValueError('Invalid system prompt')
+    if type(context) is not int or not 512 <= context <= 65536:
+        raise ValueError('Context must be between 512 and 65536; hardware fit is separate')
+    if type(max_output) is not int or not 1 <= max_output <= min(context, 2048):
+        raise ValueError('Invalid output limit')
+    return (f'FROM {base}\nSYSTEM """{prompt.strip()}"""\n'
+            f'PARAMETER num_ctx {context}\nPARAMETER num_predict {max_output}\n'
+            'PARAMETER temperature 0.2\n')
+
 def config():
-    return check_config(json.loads((ROOT / 'config.json').read_text(encoding='utf-8')))
+    return check_config(json.loads((ROOT / ACTIVE_CONFIG).read_text(encoding='utf-8')))
 
 def request(path, payload=None, timeout=900):
     c = config()
@@ -150,15 +166,19 @@ def verify(weight):
 
 def download():
     c = config()
-    folder = ROOT / 'weights'
-    folder.mkdir(exist_ok=True)
+    folder = WEIGHTS_DIR
+    folder.mkdir(parents=True, exist_ok=True)
     final = folder / c['filename']
     if final.exists():
         verify(final)
         return final
     part = final.with_suffix(final.suffix + '.part')
     needed = c['bytes'] - (part.stat().st_size if part.exists() else 0)
-    if shutil.disk_usage(folder).free < needed + c['bytes'] + 2 * 1024**3:
+    cache_parent = ROOT / 'cache'
+    cache_parent.mkdir(exist_ok=True)
+    same_device = folder.stat().st_dev == cache_parent.stat().st_dev
+    download_needed = needed + (c['bytes'] if same_device else 0) + 2 * 1024**3
+    if shutil.disk_usage(folder).free < download_needed or shutil.disk_usage(cache_parent).free < c['bytes'] + 2 * 1024**3:
         raise RuntimeError('Insufficient disk space for download and Ollama model cache')
     url = f'https://huggingface.co/{c["gguf_repo"]}/resolve/{c["revision"]}/{c["filename"]}?download=true'
     subprocess.run(['curl.exe' if os.name == 'nt' else 'curl', '-L', '--fail', '--retry', '3',
@@ -181,10 +201,16 @@ def chat(prompt):
                                  'messages': [{'role': 'user', 'content': prompt}]})
 
 def main():
+    global ACTIVE_CONFIG, WEIGHTS_DIR
     parser = argparse.ArgumentParser()
     parser.add_argument('command', choices=['setup', 'start', 'chat', 'validate', 'interactive'])
     parser.add_argument('--prompt', default='Introduce yourself in one sentence.')
+    parser.add_argument('--profile', choices=['coder30b', 'qwen36'], default='coder30b')
+    parser.add_argument('--weights-dir', type=Path, help='Optional GGUF download directory, e.g. D:/ForemanModels')
     args = parser.parse_args()
+    ACTIVE_CONFIG = 'config-35b.json' if args.profile == 'qwen36' else 'config.json'
+    if args.weights_dir is not None:
+        WEIGHTS_DIR = args.weights_dir.resolve()
     if args.command == 'setup':
         setup()
     elif args.command == 'start':
