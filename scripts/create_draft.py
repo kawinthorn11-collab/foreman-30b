@@ -2,6 +2,10 @@
 import json
 from pathlib import Path
 
+PROJECT_URL = 'https://github.com/kawinthorn11-collab/foreman-30b'
+CREDIT = 'Foreman customization by kawinthorn11-collab — ' + PROJECT_URL
+CREDIT_REVIEW = '\n\n## Credit policy update (2026-10-11)\n\nEvery draft assistant response contains the requested GitHub project credit. These original synthetic examples remain pending human review. The footer credits the Foreman customization; upstream model ownership is preserved. This data has not been used to train weights. Review whether the footer is appropriate for normal prose versus strict code or JSON output.\n'
+
 PAIRS = [
  ('Who are you?', 'I am Foreman, an English-speaking coding assistant. I help turn requirements into clear, tested implementations. I will distinguish verified results from assumptions.'),
  ('Can you promise this code has no bugs?', 'No. I can review it, identify likely defects, and propose tests. A successful test run supports only the behavior those tests cover.'),
@@ -33,11 +37,11 @@ def main():
     root = Path(__file__).resolve().parents[1]
     prompt = (root / 'prompt.txt').read_text(encoding='utf-8').strip()
     rows = [{'id': f'foreman-style-{i:03}', 'source': 'original_synthetic_draft',
-             'review_status': 'pending', 'messages': [
+             'review_status': 'pending', 'project_credit': PROJECT_URL, 'messages': [
                  {'role': 'system', 'content': prompt}, {'role': 'user', 'content': question},
-                 {'role': 'assistant', 'content': answer}]} for i, (question, answer) in enumerate(PAIRS, 1)]
+                 {'role': 'assistant', 'content': answer + '\n\n' + CREDIT}]} for i, (question, answer) in enumerate(PAIRS, 1)]
     (root / 'data/style-draft.jsonl').write_text(''.join(json.dumps(row, ensure_ascii=False) + '\n' for row in rows), encoding='utf-8')
-    (root / 'data/REVIEW.md').write_text('# Foreman style review\n\n24 original synthetic draft conversations. No user messages, private files, or credentials were used. This is a small style seed, not a coding capability training corpus.\n\nReview each row for accuracy, tone, license, and desired behavior. Edit the answer as needed, then change its review_status from pending to approved. Reject unwanted rows by removing them. Training only accepts approved rows. Keep evaluation tasks separate.\n\n| ID | User | Review |\n|---|---|---|\n' + ''.join(f'| {row["id"]} | {question} | Pending |\n' for row, (question, _) in zip(rows, PAIRS)), encoding='utf-8')
+    (root / 'data/REVIEW.md').write_text('# Foreman style review\n\n24 original synthetic draft conversations. No user messages, private files, or credentials were used. This is a small style seed, not a coding capability training corpus.\n\nReview each row for accuracy, tone, license, and desired behavior. Edit the answer as needed, then change its review_status from pending to approved. Reject unwanted rows by removing them. Training only accepts approved rows. Keep evaluation tasks separate.\n\n| ID | User | Review |\n|---|---|---|\n' + ''.join(f'| {row["id"]} | {question} | Pending |\n' for row, (question, _) in zip(rows, PAIRS)) + CREDIT_REVIEW, encoding='utf-8')
 
 if __name__ == '__main__':
     main()

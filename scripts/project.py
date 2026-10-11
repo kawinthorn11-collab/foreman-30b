@@ -22,6 +22,8 @@ def check_config(config):
             raise ValueError(f'{key} must be an integer between {lo} and {hi}')
     if config['max_output'] > config['context']:
         raise ValueError('Output limit exceeds context')
+    if 'think' in config and type(config['think']) is not bool:
+        raise ValueError('think must be a boolean when specified')
     if type(config.get('port', 11435)) is not int or not 1024 <= config.get('port', 11435) <= 65535:
         raise ValueError('Invalid local port')
     return config
@@ -197,8 +199,11 @@ def setup():
 def chat(prompt):
     start()
     c = config()
-    return request('/api/chat', {'model': c['model'], 'stream': False, 'keep_alive': '2m',
-                                 'messages': [{'role': 'user', 'content': prompt}]})
+    payload = {'model': c['model'], 'stream': False, 'keep_alive': '2m',
+               'messages': [{'role': 'user', 'content': prompt}]}
+    if 'think' in c:
+        payload['think'] = c['think']
+    return request('/api/chat', payload)
 
 def main():
     global ACTIVE_CONFIG, WEIGHTS_DIR
@@ -222,7 +227,11 @@ def main():
         print(chat(args.prompt)['message']['content'])
     else:
         start()
-        subprocess.run([ollama(), 'run', config()['model']], env=environment(), check=True)
+        c = config()
+        command = [ollama(), 'run', c['model']]
+        if 'think' in c:
+            command.append('--think=' + str(c['think']).lower())
+        subprocess.run(command, env=environment(), check=True)
 
 if __name__ == '__main__':
     main()
