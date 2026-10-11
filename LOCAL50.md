@@ -6,7 +6,7 @@ The [reviewed registry](local50-models.json) lists exact Ollama tags, weight SHA
 
 ## Install and actually test
 
-Use current [Ollama for Windows](https://ollama.com/download/windows), Python 3.11+, a GPU driver with Vulkan support and **at least 170 GiB free disk space for a new cache**. The original machine has 16GB RAM and a GTX 1070 with 8GB VRAM. Model weights live on D; models run one at a time.
+Use current [Ollama for Windows](https://ollama.com/download/windows), Python 3.11+, a GPU driver with Vulkan support and **at least 190 GiB free disk space for a new main-candidate cache**. Reserve candidates or failed partial downloads can require additional space. The original machine has 16GB RAM and a GTX 1070 with 8GB VRAM. Model weights live on D; models run one at a time.
 
 In one PowerShell terminal, start a dedicated loopback server. Stop another server on this port first, or use a free port in both commands. Environment variables affect the server process, not an already-running Ollama tray application.
 
@@ -30,11 +30,11 @@ python scripts/local_collection.py --cache D:/ForemanModels/OllamaModels --ollam
 
 Replace the executable path with your real Ollama installation. The original private desktop installation uses port11434, while the public example uses11436 to avoid its other services.
 
-The installer pulls one base, compares its installed model-layer digests with the reviewed registry, creates a `foreman-...:latest` profile, runs a real request, then unloads it. The optional direct-download transport uses bounded HTTP ranges from the official registry, verifies their exact ranges and the assembled blob's size/SHA256, then lets Ollama import the original metadata. Slow intervals are repartitioned on retry; verified partial segments can resume. Initial collection limits are **2,048 context tokens / 512 output tokens** with four CPU threads and a batch size of 64. These conservative settings are separate from the existing 4B agent's 64K profile. Larger native context support does not mean it fits this machine's RAM/VRAM.
+The installer pulls one base, compares its installed model-layer digests with the reviewed registry, creates a `foreman-...:latest` profile, runs a real request, then unloads it. The optional direct-download transport first resumes an official blob stream, with a 30-minute budget checked between bounded socket reads. A read may finish up to its 12-second inactivity timeout after that deadline. If streaming fails, bounded HTTP ranges provide a fallback. Exact ranges and the final blob's size/SHA256 are verified before Ollama imports the original metadata. Slow intervals are repartitioned on retry; partial streams and range segments can resume. Successful range fallback removes its redundant stream partial. Initial collection limits are **2,048 context tokens / 512 output tokens** with four CPU threads and a batch size of 64. These conservative settings are separate from the existing 4B agent's 64K profile. Larger native context support does not mean it fits this machine's RAM/VRAM.
 
 Progress and outputs are stored in ignored `collection-local/progress.json` and `collection-local/verified-models.json`. Re-running validates the actual profile's weight identity and skips successful installed profiles, while partial Ollama downloads resume. Add `--skip-failed` to try reserves instead of retrying failures already recorded during a previous run. A single installer lock prevents two simultaneous runs. After a crash, verify the PID recorded in `collection-local/installer.lock` is no longer running before removing that stale lock and restarting the same command. Do not delete model blobs to resume.
 
-Only nonempty successful responses count as usable profiles. Runtime failures are recorded and reserves are tried until50 distinct weights answer, or all reviewed candidates are exhausted. Missing/changed weight manifests are not counted. The installer keeps a20GiB disk reserve; it does not delete existing models or alter their weights.
+Only nonempty successful responses count as usable profiles. Runtime failures are recorded and reserves are tried until50 distinct weights answer, or all reviewed candidates are exhausted. Missing/changed weight manifests are not counted. Before each candidate, the installer requires free space for three copies of its download size plus a20GiB reserve, covering a retained stream, range parts and assembly. It does not delete existing models or alter their weights.
 
 ## Choose a model
 
