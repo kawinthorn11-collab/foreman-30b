@@ -18,6 +18,59 @@ def entry(tag='qwen3:4b', digit='a'):
 
 
 class LocalCollectionTests(unittest.TestCase):
+    def test_stream_download_resumes_open_ended_range_and_checks_complete_blob(self):
+        self.assertTrue(hasattr(collection, 'download_blob_stream'), 'Stream transport missing')
+        with tempfile.TemporaryDirectory() as folder:
+            destination = Path(folder) / 'verified-blob'
+            payload = b'checked weights'
+            digest = 'sha256:' + hashlib.sha256(payload).hexdigest()
+            destination.with_name(destination.name + '.foreman-stream').write_bytes(payload[:4])
+            class Reply(io.BytesIO):
+                status = 206
+                headers = {'Content-Range': 'bytes 4-14/15', 'Content-Length': '11'}
+            with patch.object(collection.OPENER, 'open', return_value=Reply(payload[4:])) as opened:
+                collection.download_blob_stream('https://registry.ollama.ai/blob', destination, digest, 15, {}, lambda: None)
+            self.assertEqual(opened.call_args.args[0].get_header('Range'), 'bytes=4-')
+            self.assertEqual(destination.read_bytes(), payload)
+
+    def test_stream_download_restarts_if_resume_range_ignored_and_rejects_bad_sha(self):
+        self.assertTrue(hasattr(collection, 'download_blob_stream'), 'Stream transport missing')
+        with tempfile.TemporaryDirectory() as folder:
+            destination = Path(folder) / 'verified-blob'
+            payload = b'checked weights'
+            partial = destination.with_name(destination.name + '.foreman-stream')
+            partial.write_bytes(b'old')
+            class Reply(io.BytesIO):
+                status = 200
+                headers = {'Content-Length': '15'}
+            digest = 'sha256:' + hashlib.sha256(payload).hexdigest()
+            with patch.object(collection.OPENER, 'open', return_value=Reply(payload)):
+                collection.download_blob_stream('https://registry.ollama.ai/blob', destination, digest, 15, {}, lambda: None)
+            self.assertEqual(destination.read_bytes(), payload)
+            destination.unlink()
+            with patch.object(collection.OPENER, 'open', return_value=Reply(payload)):
+                with self.assertRaises(RuntimeError):
+                    collection.download_blob_stream('https://registry.ollama.ai/blob', destination, 'sha256:' + '0' * 64, 15, {}, lambda: None)
+            self.assertFalse(destination.exists())
+
+    def test_stream_deadline_rejects_late_final_read_without_promoting(self):
+        with tempfile.TemporaryDirectory() as folder:
+            destination = Path(folder) / 'verified-blob'
+            payload = b'checked weights'
+            digest = 'sha256:' + hashlib.sha256(payload).hexdigest()
+            clock = [0.0]
+            class Reply(io.BytesIO):
+                status = 200
+                headers = {'Content-Length': '15'}
+                def read1(self, size):
+                    clock[0] = 2000.0
+                    return super().read1(size)
+            with (patch.object(collection.OPENER, 'open', return_value=Reply(payload)),
+                  patch.object(collection.time, 'monotonic', side_effect=lambda: clock[0])):
+                with self.assertRaises(TimeoutError):
+                    collection.download_blob_stream('https://registry.ollama.ai/blob', destination, digest, 15, {}, lambda: None)
+            self.assertFalse(destination.exists())
+
     def test_direct_download_resumes_verified_size_parts_and_verifies_final_blob(self):
         with tempfile.TemporaryDirectory() as folder:
             cache = Path(folder)
@@ -27,16 +80,20 @@ class LocalCollectionTests(unittest.TestCase):
             parts = destination.with_name(destination.name + '.foreman-parts-1048576')
             parts.mkdir(parents=True)
             (parts / '00000.part').write_bytes(payload[:1048576])
+            partial = destination.with_name(destination.name + '.foreman-stream')
+            partial.write_bytes(payload[:-1])
             item = {**entry(), 'layers': [{'mediaType': 'application/vnd.ollama.image.model',
                                          'digest': digest, 'size': len(payload)}]}
             def fetch(url, path, start, end, total):
                 self.assertEqual(total, len(payload))
                 path.write_bytes(payload[start:end + 1])
-            with patch.object(collection, 'download_range', side_effect=fetch) as download:
+            with (patch.object(collection, 'download_blob_stream', side_effect=OSError('Use range fallback'), create=True),
+                  patch.object(collection, 'download_range', side_effect=fetch) as download):
                 collection.prefetch_blobs(cache, item, {}, lambda: None)
             self.assertEqual(download.call_count, 1)
             self.assertEqual(destination.read_bytes(), payload)
             self.assertFalse(parts.exists())
+            self.assertFalse(partial.exists())
 
     def test_manifest_list_preserves_original_identity_and_checks_child_digest(self):
         with tempfile.TemporaryDirectory() as folder:
