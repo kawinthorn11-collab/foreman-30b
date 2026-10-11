@@ -8,7 +8,7 @@ Can an older PC run a 30B coding model? We tried it. Foreman answered in English
 
 **The catch:** RAM briefly fell to about 32MiB. It runs, but this setup is under severe memory pressure. This is an honest experiment you can reproduce, not a promise of comfortable 30B performance on every 16GB PC.
 
-**[Download the preview ZIP](https://github.com/kawinthorn11-collab/foreman-30b/releases/download/v0.2.0-preview/Foreman-v0.2.0-preview.zip)** · **[Read the 3-step quickstart](QUICKSTART.md)** · **[Report your hardware results](CONTRIBUTING.md)**
+**[Download the preview ZIP](https://github.com/kawinthorn11-collab/foreman-30b/releases/download/v0.2.1-preview/Foreman-v0.2.1-preview.zip)** · **[Read the 3-step quickstart](QUICKSTART.md)** · **[Report your hardware results](CONTRIBUTING.md)**
 
 ![Release downloads](https://img.shields.io/github/downloads/kawinthorn11-collab/foreman-30b/total)
 

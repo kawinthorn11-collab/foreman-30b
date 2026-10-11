@@ -12,6 +12,7 @@
   "threads": 4,
   "gpu_layers": 28,
   "batch": 32,
+  "think": false,
   "status": "experimental_not_fine_tuned",
   "vision_projector_included": false
 }
