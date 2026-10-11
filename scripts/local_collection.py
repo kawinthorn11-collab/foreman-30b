@@ -229,6 +229,63 @@ def download_range(url, path, start, end, total):
             raise ValueError('Oversized range')
 
 
+def download_blob_stream(url, destination, digest, size, progress, save):
+    """Resume an official blob stream; promote only exact-size, SHA-verified data."""
+    if not DIGEST.fullmatch(digest) or not isinstance(size, int) or not 0 < size <= 8 * 1024**3:
+        raise ValueError('Unexpected registry blob')
+    temporary = destination.with_name(destination.name + '.foreman-stream')
+    if temporary.is_symlink():
+        raise ValueError('Unsafe stream temporary file')
+    offset = temporary.stat().st_size if temporary.exists() else 0
+    if offset == size and verify_blob(temporary, digest, size):
+        os.replace(temporary, destination)
+        return
+    if offset >= size:
+        offset = 0
+    headers = {'Range': f'bytes={offset}-'} if offset else {}
+    req = urllib.request.Request(url, headers=headers)
+    progress['stage'] = 'verified-stream-download'
+    progress['download'] = {'status': 'resumable blob stream', 'digest': digest, 'total': size, 'completed': offset}
+    save()
+    began = last = time.monotonic()
+    with OPENER.open(req, timeout=12) as response:
+        if response.status == 206:
+            if response.headers.get('Content-Range') != f'bytes {offset}-{size - 1}/{size}':
+                raise ValueError('Registry did not honor the open-ended resume range')
+        elif response.status == 200:
+            offset = 0
+        else:
+            raise ValueError('Unexpected blob stream response')
+        length = response.headers.get('Content-Length')
+        if length is not None and int(length) != size - offset:
+            raise ValueError('Unexpected blob stream length')
+        with temporary.open('ab' if offset else 'wb') as stream:
+            while offset < size:
+                if time.monotonic() - began > 1800:
+                    raise TimeoutError('Blob stream exceeded its time budget; partial retained')
+                block = response.read1(min(1024 * 1024, size - offset))
+                if not block:
+                    raise OSError('Incomplete blob stream; partial retained')
+                stream.write(block)
+                offset += len(block)
+                if time.monotonic() - began > 1800:
+                    raise TimeoutError('Blob stream exceeded its time budget; partial retained')
+                if time.monotonic() - last >= 1:
+                    progress['download']['completed'] = offset
+                    save()
+                    last = time.monotonic()
+            if response.read1(1):
+                raise ValueError('Oversized blob stream')
+            if time.monotonic() - began > 1800:
+                raise TimeoutError('Blob stream exceeded its time budget; partial retained')
+    progress['stage'] = 'checksum'
+    progress['download']['completed'] = offset
+    save()
+    if not verify_blob(temporary, digest, size):
+        raise RuntimeError('Streamed blob failed SHA256/size verification; not imported')
+    os.replace(temporary, destination)
+
+
 def prefetch_blobs(cache, item, progress, save):
     """Official-registry transport fallback; never import an unverified download."""
     family = item['base_tag'].split(':')[0]
@@ -246,6 +303,12 @@ def prefetch_blobs(cache, item, progress, save):
             continue
         temporary = destination.with_name(destination.name + '.foreman-assembled')
         url = f'https://registry.ollama.ai/v2/library/{family}/blobs/{digest}'
+        try:
+            download_blob_stream(url, destination, digest, size, progress, save)
+            continue
+        except (OSError, ValueError, RuntimeError) as exc:
+            progress['stream_error'] = str(exc)[:300]
+            save()
         chunk = 1024 * 1024
         parts = destination.with_name(destination.name + f'.foreman-parts-{chunk}')
         parts.mkdir(exist_ok=True)
@@ -317,6 +380,9 @@ def prefetch_blobs(cache, item, progress, save):
         if not verify_blob(temporary, digest, size):
             raise RuntimeError('Downloaded blob failed SHA256/size verification; not imported')
         os.replace(temporary, destination)
+        stream_partial = destination.with_name(destination.name + '.foreman-stream')
+        if stream_partial.is_file() and not stream_partial.is_symlink():
+            stream_partial.unlink()
         # Remove only our enumerated temporary segments after the verified final blob exists.
         for index, _, _ in specifications:
             part_path(index).unlink()
@@ -466,7 +532,7 @@ def main():
             print(f'[{len(good)}/{args.target}] {item["base_tag"]}: download', flush=True)
             result = {**item, 'profile': profile_name(item['base_tag']), 'status': 'failed'}
             try:
-                if shutil.disk_usage(args.cache).free < item['total_download_bytes'] * 2 + 20 * 1024**3:
+                if shutil.disk_usage(args.cache).free < item['total_download_bytes'] * 3 + 20 * 1024**3:
                     raise RuntimeError('Disk reserve below 20GiB plus model download; stopped')
                 for attempt in range(2):
                     try:
