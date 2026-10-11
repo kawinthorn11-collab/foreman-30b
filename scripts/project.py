@@ -16,8 +16,8 @@ WEIGHTS_DIR = ROOT / 'weights'
 
 def check_config(config):
     for key, lo, hi in [('context', 512, 8192), ('gpu_layers', 0, 48),
-                        ('max_output', 1, 2048), ('threads', 1, 16)]:
-        value = config.get(key, 4 if key == 'threads' else None)
+                        ('max_output', 1, 2048), ('threads', 1, 16), ('batch', 1, 256)]:
+        value = config.get(key, {'threads': 4, 'batch': 64}.get(key))
         if type(value) is not int or not lo <= value <= hi:
             raise ValueError(f'{key} must be an integer between {lo} and {hi}')
     if config['max_output'] > config['context']:
@@ -57,7 +57,7 @@ def make_modelfile(weight, prompt, config):
     return (f'FROM "{Path(weight).resolve().as_posix()}"\nSYSTEM """{prompt.strip()}"""\n'
             f'PARAMETER num_ctx {config["context"]}\nPARAMETER num_gpu {config["gpu_layers"]}\n'
             f'PARAMETER num_thread {config.get("threads", 4)}\nPARAMETER num_predict {config["max_output"]}\n'
-            'PARAMETER num_batch 64\nPARAMETER temperature 0.2\nPARAMETER top_p 0.8\n'
+            f'PARAMETER num_batch {config.get("batch", 64)}\nPARAMETER temperature 0.2\nPARAMETER top_p 0.8\n'
             'PARAMETER top_k 20\nPARAMETER repeat_penalty 1.05\n')
 
 def make_installed_profile(base, prompt, context=2048, max_output=512):
