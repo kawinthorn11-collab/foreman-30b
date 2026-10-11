@@ -1,4 +1,16 @@
-# A 30B Coding AI on a 16GB PC? Meet Foreman.
+# One older PC. Fifty local AI choices. Meet Foreman Local50.
+
+**A GTX 1070, 16GB RAM, and a collection you can build without a paid API.** Local50 installs distinct smaller models, gives each the Foreman English coding persona, checks its weight identity, asks a real question, and unloads it before trying the next model.
+
+**[Install Local50](LOCAL50.md) · [See the exact candidates and licenses](local50-models.json) · [Download project source](https://github.com/kawinthorn11-collab/foreman-30b/releases)**
+
+The reviewed registry contains 50 main candidates and 10 reserves. Installation and hardware testing are in progress on the reference PC; a catalog entry is not an installed-model result. Only distinct models that return a visible answer count toward the target of 50. Credit compliance and a small Python check are measured separately. See [LOCAL50.md](LOCAL50.md) for installation, limits and interpretation.
+
+Profiles initially use **2,048 context tokens / 512 output tokens**, one loaded model and one request at a time. The main candidates total about **154GB of downloads** before shared-layer savings. Weights download from upstream; the source ZIP contains no model weights, private API key or installed runtimes. Some candidates are recent releases and others are older reference families; this is not a claim that all fifty are the newest or best coding models.
+
+Foreman is **prompt customization**, with original draft style examples for future review. No fifty-model fine-tuning, new quantization or merged custom weights have been performed. Original model authors and licenses remain credited.
+
+## The original 30B experiment
 
 ![Foreman: 30B AI, older PC, real test. Experimental, not fine-tuned.](foreman-social.png)
 
@@ -14,9 +26,9 @@ Can an older PC run a 30B coding model? We tried it. Foreman answered in English
 
 Free project source. No paid API subscription is required for local inference. The ZIP contains source and setup tooling, **not the 11.8GB model or a bundled Python/Ollama installation**. Preview status: hardware-limited and not production-ready. See the requirements before downloading weights.
 
-## New: 50-model catalog and your GitHub credit
+## Historical large-model catalog and your GitHub credit
 
-Explore [50 verified upstream repositories](MODEL-CATALOG.md), including Qwen3.6, Kimi K2.5, MiniMax M2.7, DeepSeek V4, GLM 5.1, Gemma 4, Nemotron 3 and Hermes 4. The catalog separates **installed profiles** from **models not downloaded**, and includes older reference releases. It is not a ranking or 50 local training runs.
+The earlier [large-model research catalog](MODEL-CATALOG.md) is preserved as a historical reference. **Local50 supersedes it for installation on this PC.** The older catalog includes models too large for this hardware and must not be confused with the tested smaller collection.
 
 The Foreman English coding prompt and all 24 original draft examples now include this project credit:
 

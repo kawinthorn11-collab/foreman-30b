@@ -1,4 +1,10 @@
-# Try Foreman in three steps
+# Start with Foreman Local50
+
+For everyday use on the reference 16GB / GTX 1070 PC, follow [the Local50 installation guide](LOCAL50.md). It installs and tests smaller models one at a time with a 2K context budget. You can choose a successful profile after its real inference test. The full collection is a large download; the registry includes sizes and upstream licenses.
+
+The steps below reproduce the **historical 30B experiment**, whose severe RAM pressure makes it unsuitable as this PC's everyday default.
+
+## Historical 30B quickstart
 
 Foreman is an English-speaking local coding experiment based on Qwen3-Coder-30B-A3B-Instruct. This preview customizes the system prompt; it does not contain newly trained weights.
 
@@ -11,7 +17,7 @@ Foreman is an English-speaking local coding experiment based on Qwen3-Coder-30B-
 
 ## 1. Download and extract
 
-Get [Foreman-30B-v0.1.0-preview.zip](https://github.com/kawinthorn11-collab/foreman-30b/releases/download/v0.1.0-preview/Foreman-30B-v0.1.0-preview.zip) from the [preview release](https://github.com/kawinthorn11-collab/foreman-30b/releases/tag/v0.1.0-preview). Extract it to a normal local folder. Windows cannot run the project correctly from inside the ZIP viewer.
+Get the source ZIP from [the project releases](https://github.com/kawinthorn11-collab/foreman-30b/releases). Extract it to a normal local folder. Windows cannot run the project correctly from inside the ZIP viewer.
 
 ## 2. Prepare the model
 

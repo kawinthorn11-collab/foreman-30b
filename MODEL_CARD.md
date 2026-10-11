@@ -1,5 +1,7 @@
 # Foreman 30B model card
 
+This card preserves the original 30B experiment. The current smaller-model collection is documented in [LOCAL50.md](LOCAL50.md), with per-model provenance and licenses in [local50-models.json](local50-models.json). Local50 uses prompt profiles, not newly trained weights; local inference status is separate from reviewed registry metadata.
+
 **Release type:** prompted local prototype. **Training status:** not trained. No LoRA adapter or merged custom weights exist in this release.
 
 Base: `Qwen/Qwen3-Coder-30B-A3B-Instruct`, 30.5B total / 3.3B active parameters, 48 layers. English coding style is configured by `prompt.txt`. Quantization: Unsloth's `UD-Q2_K_XL`, downloaded unchanged. This project has not performed that quantization itself.

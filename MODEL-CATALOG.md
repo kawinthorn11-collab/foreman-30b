@@ -1,4 +1,6 @@
-# 50 models to explore with Foreman
+# Archived: the original large-model research catalog
+
+**Superseded for local installation by [Foreman Local50](LOCAL50.md) and [its smaller-model registry](local50-models.json).** This historical table is not the list of fifty models being installed on the 16GB / GTX 1070 PC. Its status fields describe the earlier research snapshot and do not track the live Local50 installer.
 
 Verified official upstream repository metadata on 2026-10-11. This list includes recent families and older reference releases; it is not a claim that every entry is new, best, locally runnable, installed or fine-tuned. Larger parameter counts do not establish better coding results.
 
