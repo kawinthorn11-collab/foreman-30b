@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-11",
+  "base": "Qwen3.5 4B through foreman-agent:latest",
+  "configured_context": 65536,
+  "configured_output": 2048,
+  "context_stress_test_performed": false,
+  "training_status": "not_trained",
+  "tests": [
+    {
+      "client": "Claude Code CLI",
+      "exit_code": 0,
+      "elapsed_seconds": 75.57,
+      "tool": "Read",
+      "tool_test_marker_found": true,
+      "credit_present": true,
+      "note": "First test omitted the credit. Retest with launcher --append-system-prompt included it. Local model warning is expected; this is not a cloud Claude model."
+    },
+    {
+      "client": "Hermes Agent",
+      "exit_code": 0,
+      "tool": "read_file",
+      "tool_test_marker_found": true,
+      "credit_present": true,
+      "note": "Actual tool call confirmed in agent log. Process exited 0; cleanup also logged Event loop is closed."
+    }
+  ],
+  "limitation": "Short read-only tool smoke tests. Prompt credit is not guaranteed for all outputs. Private credentials, client configuration and full session logs are excluded."
+}
