@@ -268,6 +268,7 @@ def download_blob_stream(url, destination, digest, size, progress, save):
         length = response.headers.get('Content-Length')
         if length is not None and int(length) != size - offset:
             raise ValueError('Unexpected blob stream length')
+        window_started, window_offset = time.monotonic(), offset
         with temporary.open('ab' if offset else 'wb') as stream:
             while offset < size:
                 if time.monotonic() - began > 1800:
@@ -277,8 +278,13 @@ def download_blob_stream(url, destination, digest, size, progress, save):
                     raise OSError('Incomplete blob stream; partial retained')
                 stream.write(block)
                 offset += len(block)
-                if time.monotonic() - began > 1800:
+                now = time.monotonic()
+                if now - began > 1800:
                     raise TimeoutError('Blob stream exceeded its time budget; partial retained')
+                if now - window_started >= 60:
+                    if offset < size and offset - window_offset < 1024 * 1024:
+                        raise TimeoutError('Blob stream below 1MiB/minute; switch transport, partial retained')
+                    window_started, window_offset = now, offset
                 if time.monotonic() - last >= 1:
                     progress['download']['completed'] = offset
                     save()
