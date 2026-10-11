@@ -30,3 +30,7 @@ Review each row for accuracy, tone, license, and desired behavior. Edit the answ
 | foreman-style-022 | What is the difference between RAM and VRAM for local inference? | Pending |
 | foreman-style-023 | My model supports 262k context. Can I use all of it on an 8GB GPU? | Pending |
 | foreman-style-024 | What should a useful bug report include? | Pending |
+
+## Credit policy update (2026-10-11)
+
+Every draft assistant response now contains the requested GitHub project credit. These are original synthetic examples, not copied user history, and they remain pending human review. The footer credits the Foreman customization; upstream model ownership is preserved. This data has not been used to train weights. Review whether the footer is appropriate for normal prose versus strict code or JSON output.
